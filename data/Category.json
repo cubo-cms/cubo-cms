@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "0",
+    "accesslevel": "1",
+    "description": "Root category",
+    "name": "root",
+    "status": "1",
+    "title": "Root"
+  },
+  {
+    "_id": "1",
+    "accesslevel": "1",
+    "description": "Undefined Category",
+    "name": "undefined",
+    "status": "1",
+    "title": "Undefined"
+  }
+]

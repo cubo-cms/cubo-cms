@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "0",
+    "accesslevel": "0",
+    "description": "Accessible By Nobody",
+    "name": "none",
+    "status": "0",
+    "title": "none"
+  },
+  {
+    "_id": "1",
+    "accesslevel": "1",
+    "description": "Accessible By Everyone",
+    "name": "public",
+    "status": "1",
+    "title": "Public"
+  },
+  {
+    "_id": "2",
+    "accesslevel": "2",
+    "description": "Accessible By Guests Only",
+    "name": "guest",
+    "status": "1",
+    "title": "Guest"
+  },
+  {
+    "_id": "3",
+    "accesslevel": "3",
+    "description": "Accessible By Logged Users",
+    "name": "registered",
+    "status": "3",
+    "title": "Registered"
+  },
+  {
+    "_id": "4",
+    "accesslevel": "4",
+    "description": "Accessible By Those Who Know The URI",
+    "name": "private",
+    "status": "1",
+    "title": "Private"
+  },
+  {
+    "_id": "5",
+    "accesslevel": "5",
+    "description": "Accessible By Administrators Only",
+    "name": "restricted",
+    "status": "1",
+    "title": "Restricted"
+  }
+]

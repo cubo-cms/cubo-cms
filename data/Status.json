@@ -1,0 +1,34 @@
+[
+  {
+    "_id": "1",
+    "accesslevel": "1",
+    "description": "Item Is Published",
+    "name": "published",
+    "status": "1",
+    "title": "Published"
+  },
+  {
+    "_id": "2",
+    "accesslevel": "4",
+    "description": "Item Is Not Published",
+    "name": "unpublished",
+    "status": "1",
+    "title": "Not published"
+  },
+  {
+    "_id": "3",
+    "accesslevel": "4",
+    "description": "Item Is Trashed",
+    "name": "trashed",
+    "status": "1",
+    "title": "Trashed"
+  },
+  {
+    "_id": "4",
+    "accesslevel": "4",
+    "description": "Item Is Archived",
+    "name": "archived",
+    "status": "1",
+    "title": "Archived"
+  }
+]
