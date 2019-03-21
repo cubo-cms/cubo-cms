@@ -4,19 +4,19 @@
   use Cubo\Framework\Error;
   use Cubo\Framework\Model;
 
-  class Article extends Controller {
+  class Category extends Controller {
     // Method: all
     public function all() {
       // Invoke model
       $model = $this->invokeModel();
       // Pass controller object to model
       $model->calledBy($this);
-      // Get all articles
+      // Get all categories
       return $model->getAll();
     }
 
-    // Method: category
-    public function category() {
+    // Method: articles
+    public function articles() {
     }
 
     // Method: default
@@ -29,17 +29,13 @@
       return $this->view();
     }
 
-    // Method: status
-    public function status() {
-    }
-
     // Method: view
     public function view() {
       // Invoke model
       $model = $this->invokeModel();
       // Pass controller object to model
       $model->calledBy($this);
-      // Get article by name
+      // Get category by name
       return $model->get($this->params->get('name'));
     }
   }

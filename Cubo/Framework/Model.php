@@ -86,8 +86,13 @@
     }
 
     // Method: all
-    public function getAll() {
-      //
+    public function getAll($properties = null, $options = []) {
+      // Retrieve object from class name
+      $object = $this->getClass();
+      // Find object
+      $this->data = new Set($this->database->find($object, $properties, $options));
+      // Return result as data set
+      return $this->data;
     }
 
     // Return class name

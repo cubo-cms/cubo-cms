@@ -1,4 +1,18 @@
 <?php
+/**
+  * @package        cubo-cms/cubo-cms
+  * @category       Framework
+  * @version        0.0.1
+  * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
+  * @license        MIT license <https://cubo-cms.com/LICENSE.md>
+  * @author         papiando
+  * @link           <https://github.com/cubo-cms/cubo-cms>
+  *
+  * @description    Configuration framework class is a helper class to enable
+  *                 passing core configuration data between framework classes.
+  *                 The most essential data is [config], which is loaded from
+  *                 the default location </.config/config.json>.
+  **/
   namespace Cubo\Framework;
 
   final class Configuration {
