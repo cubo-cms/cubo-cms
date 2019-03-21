@@ -1,2 +1,2 @@
-# cubo-cms
+# Cubo CMS
 Cubo CMS
