@@ -1,4 +1,19 @@
 <?php
+/**
+  * @package        cubo-cms/cubo-cms
+  * @category       Framework
+  * @version        0.0.1
+  * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
+  * @license        MIT license <https://cubo-cms.com/LICENSE.md>
+  * @author         papiando
+  * @link           <https://github.com/cubo-cms/cubo-cms>
+  *
+  * @description    Model framework class contains base methods for all
+  *                 object models. Object models extend this class and
+  *                 generally do not add more methods.
+  *                 Models retrieve or save data from the data sources and
+  *                 send the result back to the controller.
+  **/
   namespace Cubo\Framework;
   use Cubo\Framework\Configuration;
   use Cubo\Framework\Database;
@@ -46,7 +61,7 @@
       // Retrieve object from class name
       $object = $this->getClass();
       // Construct options
-      $options = (object)array_merge((array)$options, ['filter'=>['_id', $id]]);
+      $options = (object)array_merge((array)$options, ['filter'=>['_id'=>$id]]);
       // Find object
       $this->data = new Set($this->database->findOne($object, $properties, $options));
       // Return result as data set
@@ -58,7 +73,7 @@
       // Retrieve object from class name
       $object = $this->getClass();
       // Construct options
-      $options = (object)array_merge((array)$options, ['filter'=>['name', $name]]);
+      $options = (object)array_merge((array)$options, ['filter'=>['name'=>$name]]);
       // Find object
       $this->data = new Set($this->database->findOne($object, $properties, $options));
       // Return result as data set
@@ -95,9 +110,14 @@
       return $this->data;
     }
 
-    // Return class name
+    // Return class name without namespace
+    public static function class() {
+      return strtolower(basename(str_replace('\\', '/', static::class)));
+    }
+
+    // Return class name with namespace
     public static function className($model = null) {
-      return $model? (__CUBO__ == explode('\\', $model)[0]? $model: __CUBO__.'\\Model\\'.ucfirst($model)): __CLASS__;
+      return $model? (__CUBO__ == explode('\\', $model)[0]? $model: __CUBO__.'\\Model\\'.ucfirst($model)): static::class;
     }
 
     // Static method to determine if model exists

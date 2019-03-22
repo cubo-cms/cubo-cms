@@ -1,9 +1,18 @@
 [
-    {
-        "_id": "1",
-        "accesslevel": "1",
-        "name": "home",
-        "status": "1",
-        "title": "Home"
-    }
+  {
+    "_id": "1",
+    "accesslevel": "1",
+    "category": "1",
+    "name": "home",
+    "status": "1",
+    "title": "Home"
+  },
+  {
+    "_id": "1001",
+    "accesslevel": "1",
+    "category": "0",
+    "name": "dummy",
+    "status": "1",
+    "title": "Dummy Article"
+  }
 ]

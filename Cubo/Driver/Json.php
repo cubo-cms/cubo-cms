@@ -105,6 +105,7 @@
 
     // Select columns
     private function selectColumns(&$table, &$columns) {
+      is_object($columns) || $columns = (array)$columns;
       if(is_array($table) && is_array($columns) && !empty($columns)) {
         $result = [];
         // Iterate through table to select columns

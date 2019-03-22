@@ -21,9 +21,14 @@
       return false;
     }
 
-    // Return class name
+    // Return class name without namespace
+    public static function class() {
+      return strtolower(basename(str_replace('\\', '/', static::class)));
+    }
+
+    // Return class name with namespace
     public static function className($driver = null) {
-      return $driver? (__CUBO__ == explode('\\', $driver)[0]? $driver: __CUBO__.'\\Driver\\'.ucfirst($driver)): __CLASS__;
+      return $driver? (__CUBO__ == explode('\\', $driver)[0]? $driver: __CUBO__.'\\Driver\\'.ucfirst($driver)): static::class;
     }
 
     // Static method to determine if driver exists

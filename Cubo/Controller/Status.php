@@ -8,13 +8,13 @@
   * @author         papiando
   * @link           <https://github.com/cubo-cms/cubo-cms>
   *
-  * @description    Category controller class extends the controller framework
+  * @description    Status controller class extends the controller framework
   *                 class and adds additional methods.
   **/
   namespace Cubo\Controller;
   use Cubo\Framework\Controller;
 
-  class Category extends Controller {
+  class Status extends Controller {
     protected $columns = ['accesslevel', 'name', 'status', 'title'];
 
     /**
