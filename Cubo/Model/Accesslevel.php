@@ -8,12 +8,12 @@
   * @author         papiando
   * @link           <https://github.com/cubo-cms/cubo-cms>
   *
-  * @description    Status model class extends the model framework class and
-  *                 enables access to the status objects.
+  * @description    Accesslevel model class extends the model framework class
+  *                 and enables access to the access level objects.
   **/
   namespace Cubo\Model;
   use Cubo\Framework\Model;
 
-  class Status extends Model {
+  class Accesslevel extends Model {
   }
 ?>
