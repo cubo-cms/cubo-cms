@@ -89,7 +89,7 @@
       // Pass controller object to model
       $model->calledBy($this);
       // Get all access levels
-      return $model->getAll();
+      return $model->getAll($this->columns ?? ['_id', 'name']);
     }
 
     // Method: default
@@ -108,8 +108,8 @@
       $model = $this->invokeModel();
       // Pass controller object to model
       $model->calledBy($this);
-      // Get access level by name
-      return $model->get($this->params->get('name'));
+      // Get object by name
+      return $model->get($this->params->get('name'), $this->columns ?? ['_id', 'name']);
     }
 
     /**

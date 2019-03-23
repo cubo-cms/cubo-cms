@@ -43,6 +43,11 @@
       return json_encode($this->params, JSON_PRETTY_PRINT);
     }
 
+    // Delete property
+    public function delete($property) {
+      unset($this->params->$property);
+    }
+
     // Validate presence of property
     public function exists($property) {
       return isset($this->params->$property);

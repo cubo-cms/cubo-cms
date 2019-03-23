@@ -61,7 +61,7 @@
     // Initialise the application
     public function init($config = null) {
       // Load configuration
-      new Configuration($config);
+      new Configuration();
       $this->configuration = Configuration::get(basename($config, '.json'));
       // Start session
       $this->session = new Session($this->configuration->get('name', __CUBO__), $this->configuration->get('session-lifetime', 3600));

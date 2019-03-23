@@ -111,5 +111,11 @@
         }
       }
     }
+
+    // Redirect to specified URI
+    public static function redirect($uri, $responseCode = 301) {
+      Session::set('responseCode', $responseCode);
+      exit(header('Location: '.$uri));
+    }
   }
 ?>
