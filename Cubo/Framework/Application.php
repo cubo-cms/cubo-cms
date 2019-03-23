@@ -19,6 +19,7 @@
     private $configuration;     // Configuration set
     private $route;             // Pointer to router object
     private $routes;            // Set of routes
+    private $session;           // Pointer to session object
 
     // Upon construct initialise the application
     public function __construct($config = 'config') {
@@ -57,6 +58,8 @@
       // Load configuration
       new Configuration($config);
       $this->configuration = Configuration::get(basename($config, '.json'));
+      // Start session
+      $this->session = new Session($this->configuration->get('name', __CUBO__), $this->configuration->get('session-lifetime', 3600));
       // Load routes from configuration
       $routes = Configuration::load('routes', $this->configuration->get('routes'));
       $this->loadRoutes($routes->getAll());
