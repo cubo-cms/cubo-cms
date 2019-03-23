@@ -19,6 +19,12 @@
   class User extends Controller {
     protected $columns = ['accesslevel', 'name', 'status', 'title'];
 
+    private static $authors = [ROLE_AUTHOR, ROLE_EDITOR, ROLE_PUBLISHER, ROLE_MANAGER, ROLE_ADMINISTRATOR];
+    private static $editors = [ROLE_EDITOR, ROLE_PUBLISHER, ROLE_MANAGER, ROLE_ADMINISTRATOR];
+    private static $publishers = [ROLE_PUBLISHER, ROLE_MANAGER, ROLE_ADMINISTRATOR];
+    private static $managers = [ROLE_MANAGER, ROLE_ADMINISTRATOR];
+    private static $administrators = [ROLE_ADMINISTRATOR];
+
     /**
       * @section    Additional controller methods
       **/
@@ -80,6 +86,31 @@
     // Determine if visitor is guest
     public static function guest() {
       return !Session::exists('user');
+    }
+
+    // Determine if visitor is an administrator
+    public static function isAdministrator() {
+      return self::registered() && in_array(Session::get('user')->_id, self::$administrators);
+    }
+
+    // Determine if visitor is an author
+    public static function isAuthor() {
+      return self::registered() && in_array(Session::get('user')->_id, self::$authors);
+    }
+
+    // Determine if visitor is an editor
+    public static function isEditor() {
+      return self::registered() && in_array(Session::get('user')->_id, self::$editors);
+    }
+
+    // Determine if visitor is a manager
+    public static function isManager() {
+      return self::registered() && in_array(Session::get('user')->_id, self::$managers);
+    }
+
+    // Determine if visitor is a publisher
+    public static function isPublisher() {
+      return self::registered() && in_array(Session::get('user')->_id, self::$publishers);
     }
 
     // Determine if visitor is logged in

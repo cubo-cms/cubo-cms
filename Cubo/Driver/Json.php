@@ -14,7 +14,7 @@
 
     // Apply options
     private function applyOptions($table, &$options) {
-      is_object($options) && $options = (array)$options;
+      is_object($options) && $options = (array)$options->getAll();
       if(is_array($options)) {
         // Iterate through options
         foreach($options as $option=>$properties) {
@@ -28,6 +28,7 @@
 
     // Filter results
     private function filterOption($table, $filter) {
+      is_object($filter) && $filter = (array)$filter->getAll();
       if(is_array($table) && is_array($filter)) {
         $result = [];
         // Iterate through table to filter
@@ -49,6 +50,7 @@
 
     // Limit results
     private function limitOption($table, $offsetLimit) {
+      is_object($offsetLimit) && $offsetLimit = (array)$offsetLimit->getAll();
       if(is_array($table)) {
         if(is_array($offsetLimit)) {
           if(isset($offsetLimit['limit']) || isset($offsetLimit['offset'])) {
@@ -65,7 +67,7 @@
           $limit = $offsetLimit;
           $offset = 0;
         }
-        $table = array_slice($table, $offset, $limit);
+        $table = array_slice($table, (int)$offset, (int)$limit);
       }
       return $table;
     }
@@ -124,6 +126,7 @@
 
     // Sort results
     private function sortOption($table, $sortOrder) {
+      is_object($sortOrder) && $sortOrder = (array)$sortOrder->getAll();
       if(is_array($table)) {
         if(is_array($sortOrder))
           $this->sortOrder = $sortOrder;

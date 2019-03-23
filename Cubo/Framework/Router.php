@@ -6,10 +6,11 @@
     private $controller;        // Pointer to controller object
     private $method;            // Invoked method
     private $params;            // Parameter set
+    private $query;             // Query set
     private $routes;            // Set of routes
 
     // Upon construct initialise router
-    public function __construct($routes) {
+    public function __construct($routes = null) {
       $this->init($routes);
     }
 
@@ -44,8 +45,14 @@
       return $this->params;
     }
 
+    // Return query set
+    public function getQuery() {
+      is_null($this->query) && $this->query = $this->parseQuery();
+      return $this->query;
+    }
+
     // Initialise router
-    public function init($routes) {
+    public function init($routes = null) {
       $this->routes = $routes;
     }
 
@@ -87,9 +94,9 @@
     }
 
     // Parse route
-    public function parse($uri, $routes = null) {
+    public function parse($uri = null, $routes = null) {
       is_null($routes) || $this->$routes = $routes;
-      $parts = explode('/', trim(parse_url($uri, PHP_URL_PATH), '/'));
+      $parts = explode('/', trim(parse_url($uri ?? $_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
       // Expand url and match to route list
       foreach($this->routes as $route) {
         $params = new Set();
@@ -110,6 +117,19 @@
           }
         }
       }
+    }
+
+    // Parse query string
+    public function parseQuery($uri = null) {
+      // Parse query
+      parse_str(parse_url($uri ?? $_SERVER['REQUEST_URI'], PHP_URL_QUERY), $query);
+      // Normalise values (a:1,b:2 becomes a=1&b=2)
+      foreach($query as $property=>$value) {
+        if(is_string($value) && strpos($value, ':'))
+          $query[$property] = $this->parseQuery('?'.str_replace(',', '&', str_replace(':', '=', $value)));
+      }
+      // Store query
+      return new Set($query);
     }
 
     // Redirect to specified URI

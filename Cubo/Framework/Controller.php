@@ -88,8 +88,11 @@
       $model = $this->invokeModel();
       // Pass controller object to model
       $model->calledBy($this);
+      // Retrieve filters from query
+      $query = $this->router->getQuery();
+      $columns = array_filter(explode(',', $query->get('columns')), 'strlen');
       // Get all access levels
-      return $model->getAll($this->columns ?? ['_id', 'name']);
+      return $model->getAll(empty($columns)? $this->columns ?? ['_id', 'name']: $columns, $query);
     }
 
     // Method: default
@@ -108,8 +111,11 @@
       $model = $this->invokeModel();
       // Pass controller object to model
       $model->calledBy($this);
+      // Retrieve filters from query
+      $query = $this->router->getQuery();
+      $columns = array_filter(explode(',', $query->get('columns')), 'strlen');
       // Get object by name
-      return $model->get($this->params->get('name'), $this->columns ?? ['_id', 'name']);
+      return $model->get($this->params->get('name'), empty($columns)? $this->columns ?? ['_id', 'name']: $columns, $query);
     }
 
     /**

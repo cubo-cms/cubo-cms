@@ -15,6 +15,32 @@
   **/
   namespace Cubo\Framework;
 
+  define('ACCESSLEVEL_ANY', -1);
+  define('ACCESSLEVEL_GUEST', 3);
+  define('ACCESSLEVEL_PRIVATE', 4);
+  define('ACCESSLEVEL_PUBLIC', 1);
+  define('ACCESSLEVEL_REGISTERED', 2);
+  define('ACCESSLEVEL_RESTRICTED', 5);
+  define('CATEGORY_ANY', -1);
+  define('CATEGORY_ROOT', 0);
+  define('CATEGORY_UNDEFINED', 1);
+  define('ROLE_ADMINISTRATOR', 6);
+  define('ROLE_ANY', -1);
+  define('ROLE_AUTHOR', 2);
+  define('ROLE_EDITOR', 3);
+  define('ROLE_MANAGER', 5);
+  define('ROLE_PUBLISHER', 4);
+  define('ROLE_USER', 1);
+  define('STATUS_ANY', -1);
+  define('STATUS_ARCHIVED', 4);
+  define('STATUS_PUBLISHED', 1);
+  define('STATUS_TRASHED', 3);
+  define('STATUS_UNPUBLISHED', 2);
+  define('USER_ADMIN', 2);
+  define('USER_ANY', -1);
+  define('USER_NOBODY', 0);
+  define('USER_SYSTEM', 1);
+
   final class Configuration {
     private static $params;
     private static $path;
