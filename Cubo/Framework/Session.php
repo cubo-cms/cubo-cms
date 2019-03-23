@@ -38,7 +38,7 @@
 
     // Allow returning session properties as JSON
     public function __toString() {
-      return json_encode($this->params, JSON_PRETTY_PRINT);
+      return (string)$this->params;
     }
 
     // Determine if property exists
@@ -71,7 +71,7 @@
     public function init($name = __CUBO__, $lifetime = 3600) {
       is_null($this->params) && $this->params = new Set;
       // Apply session name
-      session_name($name));
+      session_name($name);
       // Determine if there was a session cookie before starting
       $newSession = !isset($_COOKIE[$name]);
       // Start the session
@@ -87,7 +87,7 @@
     // Set session property
     public function set($property, $value) {
       is_null($this->params) && $this->init();
-      $_SESSION[$property] = $this->params->set($property, $value);
+      return $_SESSION[$property] = $this->params->set($property, $value);
     }
   }
 ?>

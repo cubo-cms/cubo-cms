@@ -9,6 +9,8 @@
   $app = new Application;
 
   $app->run();
+
+  echo (string)$app->getSession();
 die;
 
   //echo '<pre>'; print_r($app); echo '</pre>';

@@ -1,3 +1,4 @@
+<?php
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Model
@@ -10,7 +11,6 @@
   * @description    Article model class extends the model framework class and
   *                 enables access to the article objects.
   **/
-<?php
   namespace Cubo\Model;
   use Cubo\Framework\Model;
 

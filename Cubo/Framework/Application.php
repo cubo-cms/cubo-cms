@@ -53,6 +53,11 @@
       return $this->routes ?? [];
     }
 
+    // Retrieve set of routes
+    public function getSession() {
+      return $this->session ?? null;
+    }
+
     // Initialise the application
     public function init($config = null) {
       // Load configuration
