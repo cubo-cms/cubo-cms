@@ -60,7 +60,6 @@
     public function invokeModel() {
       try {
         $model = Model::className($this->params->get('controller'));
-        $this->method = $this->params->get('method', 'default');
         // Determine if model exists
         if(Model::exists($model)) {
           // Initiate model
@@ -70,7 +69,24 @@
           throw new Error(['message'=>'model-does-not-exist', 'params'=>$this->params]);
         }
       } catch(Error $error) {
-          $error->render();
+        $error->render();
+      }
+    }
+
+    // Invoke view
+    public function invokeView() {
+      try {
+        $view = View::className($this->params->get('controller'));
+        // Determine if view exists
+        if(View::exists($view)) {
+          // Initiate view
+          return $this->view = new $view();
+        } else {
+          // The view does not exist
+          throw new Error(['message'=>'view-does-not-exist', 'params'=>$this->params]);
+        }
+      } catch(Error $error) {
+        $error->render();
       }
     }
 
@@ -86,17 +102,25 @@
     // Method: all
     public function all() {
       // Invoke model
-      $model = $this->invokeModel();
-      // Pass controller object to model
-      $model->calledBy($this);
-      // Retrieve filters from query
-      $query = $this->router->getQuery();
-      $columns = array_filter(explode(',', $query->get('columns')), 'strlen');
-      $query->delete('columns');
-      // Add access filter
-      $query->merge(self::canList());
-      // Get all access levels
-      return $model->getAll(empty($columns)? $this->columns ?? ['_id', 'name']: $columns, $query);
+      if($model = $this->invokeModel()) {
+        // Pass controller object to model
+        $model->calledBy($this);
+        // Retrieve filters from query
+        $query = $this->router->getQuery();
+        $columns = array_filter(explode(',', $query->get('columns')), 'strlen');
+        $query->delete('columns');
+        // Add access filter
+        $query->merge(self::canList());
+        // Get all access levels
+        $data = $model->getAll(empty($columns)? $this->columns ?? ['_id', 'name']: $columns, $query);
+        // Invoke View
+        if($view = $this->invokeView()) {
+          // Pass controller object to view
+          $view->calledBy($this);
+          // Call view method
+          return $view->default($data);
+        }
+      }
     }
 
     // Method: default
@@ -112,17 +136,25 @@
     // Method: view
     public function view() {
       // Invoke model
-      $model = $this->invokeModel();
-      // Pass controller object to model
-      $model->calledBy($this);
-      // Retrieve filters from query
-      $query = $this->router->getQuery();
-      $columns = array_filter(explode(',', $query->get('columns')), 'strlen');
-      $query->delete('columns');
-      // Add access filter
-      $query->merge(self::canView());
-      // Get object by name
-      return $model->get($this->params->get('name'), empty($columns)? $this->columns ?? ['_id', 'name']: $columns, $query);
+      if($model = $this->invokeModel()) {
+        // Pass controller object to model
+        $model->calledBy($this);
+        // Retrieve filters from query
+        $query = $this->router->getQuery();
+        $columns = array_filter(explode(',', $query->get('columns')), 'strlen');
+        $query->delete('columns');
+        // Add access filter
+        $query->merge(self::canView());
+        // Get object by name
+        $data = $model->get($this->params->get('name'), empty($columns)? $this->columns ?? ['_id', 'name']: $columns, $query);
+        // Invoke View
+        if($view = $this->invokeView()) {
+          // Pass controller object to view
+          $view->calledBy($this);
+          // Call view method
+          return $view->default($data);
+        }
+      }
     }
 
     /**

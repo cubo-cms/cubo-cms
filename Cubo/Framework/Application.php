@@ -85,11 +85,12 @@
       // Pass application object to router
       $router->calledBy($this);
       // Invoke controller
-      $controller = $router->invokeController();
-      // Pass application object to controller
-      $controller->calledBy($this);
-      // Invoke method
-      echo '<pre>'.$router->invokeMethod($this).'</pre>';            // ****************** CURRENTLY JUST SHOW OUTPUT
+      if($controller = $router->invokeController()) {
+        // Pass application object to controller
+        $controller->calledBy($this);
+        // Invoke method
+        echo '<pre>'.$router->invokeMethod($this).'</pre>';  // ****** CURRENTLY JUST SHOW OUTPUT
+      }
     }
 
     // Set configuration parameter
