@@ -21,6 +21,10 @@
     private $routes;            // Set of routes
     private $session;           // Pointer to session object
 
+    /**
+      * @section    Magic methods
+      **/
+
     // Upon construct initialise the application
     public function __construct($config = 'config') {
       $this->init($config);
@@ -30,6 +34,10 @@
     public function __toString() {
       return (string)$this->configuration;
     }
+
+    /**
+      * @section    Basic public methods
+      **/
 
     // Add a new route
     public function addRoute($path, $params = null) {
@@ -53,7 +61,7 @@
       return $this->routes ?? [];
     }
 
-    // Retrieve set of routes
+    // Return session object
     public function getSession() {
       return $this->session ?? null;
     }
@@ -70,15 +78,6 @@
       $this->loadRoutes($routes->getAll());
     }
 
-    // Load routes from configuration
-    private function loadRoutes($routes) {
-      is_array($routes) && $routes = (object)$routes;
-      // Iterate through routes
-      foreach($routes as $path=>$params) {
-        $this->addRoute($path, $params);
-      }
-    }
-
     // Start the application
     public function run() {
       // Get router object
@@ -90,13 +89,26 @@
       // Pass application object to controller
       $controller->calledBy($this);
       // Invoke method
-      echo $router->invokeMethod($this);            // ****************** CURRENTLY JUST SHOW OUTPUT
+      echo '<pre>'.$router->invokeMethod($this).'</pre>';            // ****************** CURRENTLY JUST SHOW OUTPUT
     }
 
     // Set configuration parameter
     public function set($property, $value) {
       is_null($this->configuration) && $this->configuration = new Set();
       $this->configuration->set($property, $value);
+    }
+
+    /**
+      * @section    Private methods
+      **/
+
+    // Load routes from configuration
+    private function loadRoutes($routes) {
+      is_array($routes) && $routes = (object)$routes;
+      // Iterate through routes
+      foreach($routes as $path=>$params) {
+        $this->addRoute($path, $params);
+      }
     }
   }
 ?>

@@ -1,4 +1,16 @@
 <?php
+/**
+  * @package        cubo-cms/cubo-cms
+  * @category       Driver
+  * @version        0.0.1
+  * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
+  * @license        MIT license <https://cubo-cms.com/LICENSE.md>
+  * @author         papiando
+  * @link           <https://github.com/cubo-cms/cubo-cms>
+  *
+  * @description    Json driver class extends the driver framework class and
+  *                 enables manipulation of JSON files used as data sources.
+  **/
   namespace Cubo\Driver;
   use Cubo\Framework\Driver;
   use Cubo\Framework\Error;
@@ -35,9 +47,12 @@
         foreach($table as $item) {
           $valid = true;
           foreach($filter as $key=>$condition) {
-            if(isset($item->$key) && $item->$key != $condition) {
-              $valid = false;
-              break;
+            if(is_array($condition)) {
+              if(isset($item->$key) && !in_array($item->$key, $condition))
+                $valid = false;
+            } else {
+              if(isset($item->$key) && $item->$key != $condition)
+                $valid = false;
             }
           }
           if($valid)

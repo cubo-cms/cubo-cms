@@ -57,11 +57,15 @@
     }
 
     // Method: getById
-    public function getById($id, $properties = null, $options = []) {
+    public function getById($id, $properties = null, $options = null) {
       // Retrieve object from class name
       $object = $this->getClass();
       // Construct options
-      $options = (object)array_merge((array)$options, ['filter'=>['_id'=>$id]]);
+      is_object($options) || $options = new Set($options);
+      if($options->exists('filter'))
+        $options->set('filter', array_merge($options->get('filter'), ['name'=>$name]));
+      else
+        $options->merge(['filter'=>['name'=>$name]]);
       // Find object
       $this->data = new Set($this->database->findOne($object, $properties, $options));
       // Return result as data set
@@ -69,11 +73,15 @@
     }
 
     // Method: getByName
-    public function getByName($name, $properties = null, $options = []) {
+    public function getByName($name, $properties = null, $options = null) {
       // Retrieve object from class name
       $object = $this->getClass();
       // Construct options
-      $options = (object)array_merge((array)$options, ['filter'=>['name'=>$name]]);
+      is_object($options) || $options = new Set($options);
+      if($options->exists('filter'))
+        $options->set('filter', array_merge($options->get('filter'), ['name'=>$name]));
+      else
+        $options->merge(['filter'=>['name'=>$name]]);
       // Find object
       $this->data = new Set($this->database->findOne($object, $properties, $options));
       // Return result as data set
@@ -91,17 +99,17 @@
     }
 
     // Method: get
-    public function get($id, $properties = null, $options = []) {
+    public function get($id, $properties = null, $options = null) {
       if(is_numeric($id))
         // Number supplied, get by Id
-        return $this->getById($id, $properties);
+        return $this->getById($id, $properties, $options);
       else
         // Name supplied, get by Name
-        return $this->getByName($id, $properties);
+        return $this->getByName($id, $properties, $options);
     }
 
     // Method: all
-    public function getAll($properties = null, $options = []) {
+    public function getAll($properties = null, $options = null) {
       // Retrieve object from class name
       $object = $this->getClass();
       // Find object

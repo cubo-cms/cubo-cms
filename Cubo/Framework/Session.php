@@ -44,12 +44,13 @@
 
     // Delete property
     public static function delete($property) {
+      unset($_SESSION[$property]);
       self::$params->delete($property);
     }
 
     // Determine if property exists
     public static function exists($property) {
-      return self::$params->exists($property);
+      return isset($_SESSION[$property]);
     }
 
     // Determine if session is expired

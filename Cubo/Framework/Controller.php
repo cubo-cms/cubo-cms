@@ -17,6 +17,7 @@
   namespace Cubo\Framework;
   use Cubo\Framework\Error;
   use Cubo\Framework\Model;
+  use Cubo\Controller\User;
 
   class Controller {
     protected $caller;          // Pointer to calling object
@@ -91,6 +92,9 @@
       // Retrieve filters from query
       $query = $this->router->getQuery();
       $columns = array_filter(explode(',', $query->get('columns')), 'strlen');
+      $query->delete('columns');
+      // Add access filter
+      $query->merge(self::canList());
       // Get all access levels
       return $model->getAll(empty($columns)? $this->columns ?? ['_id', 'name']: $columns, $query);
     }
@@ -114,6 +118,9 @@
       // Retrieve filters from query
       $query = $this->router->getQuery();
       $columns = array_filter(explode(',', $query->get('columns')), 'strlen');
+      $query->delete('columns');
+      // Add access filter
+      $query->merge(self::canView());
       // Get object by name
       return $model->get($this->params->get('name'), empty($columns)? $this->columns ?? ['_id', 'name']: $columns, $query);
     }
@@ -121,6 +128,22 @@
     /**
       * @section    Static methods
       **/
+
+    // Construct filter to restrict objects that can be viewed
+    public static function canList() {
+      $filter = [];
+      $filter['accesslevel'] = [ACCESSLEVEL_PUBLIC, User::Guest()? ACCESSLEVEL_GUEST: ACCESSLEVEL_REGISTERED];
+      $filter['status'] = [STATUS_PUBLISHED];
+      return array('filter'=>$filter);
+    }
+
+    // Construct filter to restrict objects that can be viewed
+    public static function canView() {
+      $filter = [];
+      $filter['accesslevel'] = [ACCESSLEVEL_PUBLIC, User::Guest()? ACCESSLEVEL_GUEST: ACCESSLEVEL_REGISTERED, ACCESSLEVEL_PRIVATE];
+      $filter['status'] = [STATUS_PUBLISHED, STATUS_ARCHIVED];
+      return array('filter'=>$filter);
+    }
 
     // Return class name without namespace
     public static function class() {

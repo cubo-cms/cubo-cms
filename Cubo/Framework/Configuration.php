@@ -16,10 +16,10 @@
   namespace Cubo\Framework;
 
   define('ACCESSLEVEL_ANY', -1);
-  define('ACCESSLEVEL_GUEST', 3);
+  define('ACCESSLEVEL_GUEST', 2);
   define('ACCESSLEVEL_PRIVATE', 4);
   define('ACCESSLEVEL_PUBLIC', 1);
-  define('ACCESSLEVEL_REGISTERED', 2);
+  define('ACCESSLEVEL_REGISTERED', 3);
   define('ACCESSLEVEL_RESTRICTED', 5);
   define('CATEGORY_ANY', -1);
   define('CATEGORY_ROOT', 0);

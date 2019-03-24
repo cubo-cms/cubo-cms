@@ -104,7 +104,10 @@
 
     // Merge another property set with this one
     public function merge($params) {
-      $this->params = (object)array_merge((array)$this->params, (array)$params->getAll());
+      if(is_array($params))
+        $this->params = (object)array_merge((array)$this->params, $params);
+      else
+        $this->params = (object)array_merge((array)$this->params, (array)$params->getAll());
     }
 
     // Set property

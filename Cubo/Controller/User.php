@@ -14,6 +14,7 @@
   **/
   namespace Cubo\Controller;
   use Cubo\Framework\Controller;
+  use Cubo\Framework\Router;
   use Cubo\Framework\Session;
 
   class User extends Controller {

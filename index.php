@@ -14,6 +14,7 @@
   echo('<p>Started: '.gmdate('d-m-Y H:i:s',$session->get('started')).'</p>');
   echo('<p>Last access: '.gmdate('d-m-Y H:i:s',$session->get('lastAccessed')).'</p>');
   echo('<p>Expires: '.gmdate('d-m-Y H:i:s',$session->get('expires')).'</p>');
+  echo('<p>User: '.json_encode($session->get('user')).'</p>');
 die;
 
   //echo '<pre>'; print_r($app); echo '</pre>';
