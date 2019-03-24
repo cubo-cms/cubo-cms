@@ -1,0 +1,74 @@
+[
+  {
+    "_id": "1",
+    "accesslevel": "1",
+    "category": "1",
+    "name": "home",
+    "status": "1",
+    "title": "Home"
+  },
+  {
+    "_id": "1001",
+    "accesslevel": "1",
+    "category": "0",
+    "name": "dummy",
+    "status": "1",
+    "title": "Dummy Article"
+  },
+  {
+    "_id": "1002",
+    "accesslevel": "2",
+    "category": "1",
+    "name": "guest only",
+    "status": "1",
+    "title": "guest"
+  },
+  {
+    "_id": "1003",
+    "accesslevel": "3",
+    "category": "1",
+    "name": "registered only",
+    "status": "1",
+    "title": "registered"
+  },
+  {
+    "_id": "1004",
+    "accesslevel": "4",
+    "category": "1",
+    "name": "private only",
+    "status": "1",
+    "title": "private"
+  },
+  {
+    "_id": "1005",
+    "accesslevel": "5",
+    "category": "1",
+    "name": "restricted",
+    "status": "1",
+    "title": "restricted"
+  },
+  {
+    "_id": "1006",
+    "accesslevel": "1",
+    "category": "1",
+    "name": "unpublished",
+    "status": "2",
+    "title": "unpublished"
+  },
+  {
+    "_id": "1007",
+    "accesslevel": "1",
+    "category": "1",
+    "name": "trashed",
+    "status": "3",
+    "title": "trashed"
+  },
+  {
+    "_id": "1008",
+    "accesslevel": "1",
+    "category": "1",
+    "name": "archived",
+    "status": "1",
+    "title": "archived"
+  }
+]

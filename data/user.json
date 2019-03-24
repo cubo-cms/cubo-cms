@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "0",
+    "accesslevel": "5",
+    "description": "No user",
+    "name": "nobody",
+    "password": "none",
+    "status": "0",
+    "title": "Nobody"
+  },
+  {
+    "_id": "1",
+    "accesslevel": "5",
+    "description": "System",
+    "name": "system",
+    "password": "none",
+    "status": "0",
+    "title": "System"
+  },
+  {
+    "_id": "2",
+    "accesslevel": "4",
+    "description": "Administrator",
+    "name": "admin",
+    "password": "none",
+    "status": "1",
+    "title": "Admin"
+  },
+  {
+    "_id": "1001",
+    "accesslevel": "4",
+    "description": "Papiando",
+    "name": "papiando",
+    "password": "$2y$10$NeR9RDzERz5j/YMHKyIBsuNks6baHfCfGpz0pxCF8dUR/wWS4s2Am",
+    "status": "1",
+    "title": "Papiando"
+  }
+]
