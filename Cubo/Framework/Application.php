@@ -2,7 +2,7 @@
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Framework
-  * @version        0.0.1
+  * @version        0.0.2
   * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
   * @license        MIT license <https://cubo-cms.com/LICENSE.md>
   * @author         papiando
@@ -74,8 +74,8 @@
       // Start session
       $this->session = new Session($this->configuration->get('name', __CUBO__), $this->configuration->get('session-lifetime', 3600));
       // Load routes from configuration
-      $routes = Configuration::load('routes', $this->configuration->get('routes'));
-      $this->loadRoutes($routes->getAll());
+      $router = Configuration::load('router', $this->configuration->get('router'));
+      $this->loadRoutes($router->get('routes', []));
     }
 
     // Start the application
@@ -89,7 +89,7 @@
         // Pass application object to controller
         $controller->calledBy($this);
         // Invoke method
-        echo '<pre>'.$router->invokeMethod($this).'</pre>';  // ****** CURRENTLY JUST SHOW OUTPUT
+        echo $router->invokeMethod($this);  // ****** CURRENTLY JUST SHOW OUTPUT
       }
     }
 

@@ -2,7 +2,7 @@
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Framework
-  * @version        0.0.1
+  * @version        0.0.2
   * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
   * @license        MIT license <https://cubo-cms.com/LICENSE.md>
   * @author         papiando
@@ -77,8 +77,8 @@
         // Load property set from file
         $this->loadFromFile($params);
       } elseif(is_array($params)) {
-        // Convert array to object
-        return $this->params = (object)$params;
+        // Leave this as an array
+        return $this->params = $params;
       } elseif(is_object($params)) {
         // Return object
         return $this->params = $params;

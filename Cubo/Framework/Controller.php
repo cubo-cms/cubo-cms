@@ -2,7 +2,7 @@
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Framework
-  * @version        0.0.1
+  * @version        0.0.2
   * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
   * @license        MIT license <https://cubo-cms.com/LICENSE.md>
   * @author         papiando
@@ -80,7 +80,7 @@
         // Determine if view exists
         if(View::exists($view)) {
           // Initiate view
-          return $this->view = new $view();
+          return $this->view = new $view($this->loadTemplate());
         } else {
           // The view does not exist
           throw new Error(['message'=>'view-does-not-exist', 'params'=>$this->params]);
@@ -88,6 +88,11 @@
       } catch(Error $error) {
         $error->render();
       }
+    }
+
+    // Load template from configuration
+    private function loadTemplate() {
+      return Configuration::load('template',Configuration::get('config')->get('template'));
     }
 
     // Determine if method exists
@@ -118,7 +123,7 @@
           // Pass controller object to view
           $view->calledBy($this);
           // Call view method
-          return $view->default($data);
+          return $view->default($data->getAll());
         }
       }
     }
@@ -152,7 +157,7 @@
           // Pass controller object to view
           $view->calledBy($this);
           // Call view method
-          return $view->default($data);
+          return $view->default($data->getAll());
         }
       }
     }

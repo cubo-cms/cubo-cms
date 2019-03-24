@@ -1,0 +1,16 @@
+{
+  "name": "cubo-template",
+  "type": "template",
+  "article": {
+    "default": {
+      "<article>
+        {{#article}}
+        <div>
+          <h1>{{title}}</h1>
+          <div>{{body}}</div>
+        </div>
+        {{/article}}
+      </article>"
+    }
+  }
+}

@@ -2,7 +2,7 @@
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Framework
-  * @version        0.0.1
+  * @version        0.0.2
   * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
   * @license        MIT license <https://cubo-cms.com/LICENSE.md>
   * @author         papiando
@@ -24,7 +24,8 @@
       **/
 
     // Upon construct save the router
-    public function __construct() {
+    public function __construct($template) {
+      $this->params = $template;
     }
 
     // Allow returning parameters as JSON
@@ -46,13 +47,31 @@
       return method_exists($this, $method);
     }
 
+    private function tag($tag, $html, $options = null) {
+      return '<'.$tag.'>'.$html.'</'.$tag.'>';
+    }
+
     /**
       * @section    Standard controller methods
       **/
 
     // Method: default
     public function default($data) {
-      return $data;
+      return $this->article($data);
+    }
+
+    public function article($data) {
+      print_r($data); die;
+      $output = '';
+      if(is_array($data)) {
+        foreach((array)$data as $item)
+          $output .=$this->article($item);
+      } else {
+        isset($data->title) && $output .= $this->tag('h1',$data->title);
+        isset($data->body) && $output .= $this->tag('div',$data->body);
+        $output = $this->tag('article',$output);
+      }
+      return $output;
     }
 
     /**

@@ -2,7 +2,7 @@
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Framework
-  * @version        0.0.1
+  * @version        0.0.2
   * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
   * @license        MIT license <https://cubo-cms.com/LICENSE.md>
   * @author         papiando
@@ -48,6 +48,11 @@
     // Upon construct load configuration
     public function __construct($file = 'config') {
       self::load(basename($file, '.json'), $file);
+    }
+
+    // Allow returning parameters as JSON
+    public function __toString() {
+      return (string)$this->params;
     }
 
     // Get configuration
