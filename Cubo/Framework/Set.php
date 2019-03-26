@@ -40,7 +40,7 @@
 
     // Allow returning property set as JSON
     public function __toString() {
-      return json_encode($this->params, JSON_PRETTY_PRINT);
+      return json_encode($this->params, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
     }
 
     // Delete property
@@ -120,7 +120,7 @@
     public static function isVariable($property) {
       if(!is_string($property))
         return false;
-      if(preg_match("/^\{{2}(.*)\}{2}$/", $property, $match) && !empty($match[1]))
+      if(preg_match("/^\{{2}(.+?)\}{2}$/", $property, $match) && !empty($match[1]))
         return $match[1];
       else {
         return false;

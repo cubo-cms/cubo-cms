@@ -123,7 +123,7 @@
           // Pass controller object to view
           $view->calledBy($this);
           // Call view method
-          return $view->default($data->getAll());
+          return $view->items($data);
         }
       }
     }
@@ -157,7 +157,7 @@
           // Pass controller object to view
           $view->calledBy($this);
           // Call view method
-          return $view->default($data->getAll());
+          return $view->item($data);
         }
       }
     }

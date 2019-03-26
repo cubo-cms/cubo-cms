@@ -18,6 +18,7 @@
 
   class View {
     protected $params;
+    protected $template;
 
     /**
       * @section    Magic methods
@@ -26,6 +27,7 @@
     // Upon construct save the router
     public function __construct($template) {
       $this->params = $template;
+      $this->template = $template->get('views')->{self::class()};
     }
 
     // Allow returning parameters as JSON
@@ -47,30 +49,43 @@
       return method_exists($this, $method);
     }
 
-    private function tag($tag, $html, $options = null) {
-      return '<'.$tag.'>'.$html.'</'.$tag.'>';
+    private function render(&$template, &$item) {
+      $output = preg_replace_callback("/\{{2}(.+?)\}{2}/m", function($match) use($item) {
+        return $item->{$match[1]};
+      }, $template);
+      return $output;
+    }
+
+    private function renderAll(&$template, &$items) {
+      $class = self::class();
+      $output = preg_replace_callback("/\{{2}#$class\}{2}(.+?)\{{2}\/$class\}{2}/m", function($match) use($items) {
+        $output = '';
+        foreach($items->getAll() as $item) {
+          $item = new Set($item);
+          $output .= $this->render($match[1], $item);
+        }
+        return $output;
+      }, $template);
+      return $output;
     }
 
     /**
       * @section    Standard controller methods
       **/
 
-    // Method: default
-    public function default($data) {
-      return $this->article($data);
+    // Method: item
+    public function item($data) {
+      // Retrieve template from configuration
+      $template = $this->template->{__FUNCTION__};
+      $output = $this->render($template, $data);
+      return $output;
     }
 
-    public function article($data) {
-      print_r($data); die;
-      $output = '';
-      if(is_array($data)) {
-        foreach((array)$data as $item)
-          $output .=$this->article($item);
-      } else {
-        isset($data->title) && $output .= $this->tag('h1',$data->title);
-        isset($data->body) && $output .= $this->tag('div',$data->body);
-        $output = $this->tag('article',$output);
-      }
+    // Method: items
+    public function items($data) {
+      // Retrieve template from configuration
+      $template = $this->template->{__FUNCTION__};
+      $output = $this->renderAll($template, $data);
       return $output;
     }
 
