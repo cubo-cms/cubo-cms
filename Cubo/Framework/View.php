@@ -2,7 +2,7 @@
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Framework
-  * @version        0.0.2
+  * @version        0.0.3
   * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
   * @license        MIT license <https://cubo-cms.com/LICENSE.md>
   * @author         papiando
@@ -18,7 +18,8 @@
 
   class View {
     protected $params;
-    protected $template;
+    protected $templates;
+    protected $view;
 
     /**
       * @section    Magic methods
@@ -27,7 +28,8 @@
     // Upon construct save the router
     public function __construct($template) {
       $this->params = $template;
-      $this->template = $template->get('views')->{self::class()};
+      $this->templates = new Set($template->get('templates'));
+      $this->view = $template->get('views')->{self::class()};
     }
 
     // Allow returning parameters as JSON
@@ -49,6 +51,16 @@
       return method_exists($this, $method);
     }
 
+    /**
+      * @section    Private methods
+      **/
+
+    // Get the template to be used
+    private function getTemplate() {
+      return $this->templates->get(self::class(), $this->templates->get('default', '{{main}}'));
+    }
+
+    // Render a single item
     private function render(&$template, &$item) {
       $output = preg_replace_callback("/\{{2}(.+?)\}{2}/m", function($match) use($item) {
         return $item->{$match[1]};
@@ -56,6 +68,7 @@
       return $output;
     }
 
+    // Render a list of items
     private function renderAll(&$template, &$items) {
       $class = self::class();
       $output = preg_replace_callback("/\{{2}#$class\}{2}(.+?)\{{2}\/$class\}{2}/m", function($match) use($items) {
@@ -69,24 +82,38 @@
       return $output;
     }
 
+    // Render the template
+    private function renderTemplate(&$template, &$output) {
+      $data = (object)['header'=>'HEADER', 'main'=>$output, 'footer'=>'FOOTER'];
+      return $this->render($template, $data);
+    }
+
     /**
-      * @section    Standard controller methods
+      * @section    Standard view methods
       **/
 
     // Method: item
     public function item($data) {
+      // Retrieve format from configuration
+      $format = $this->view->{__FUNCTION__};
       // Retrieve template from configuration
-      $template = $this->template->{__FUNCTION__};
-      $output = $this->render($template, $data);
-      return $output;
+      $template = $this->getTemplate();
+      // Render formatted data
+      $output = $this->render($format, $data);
+      // Render template
+      return $this->renderTemplate($template, $output);
     }
 
     // Method: items
     public function items($data) {
+      // Retrieve format from configuration
+      $format = $this->view->{__FUNCTION__};
       // Retrieve template from configuration
-      $template = $this->template->{__FUNCTION__};
-      $output = $this->renderAll($template, $data);
-      return $output;
+      $template = $this->getTemplate();
+      // Render formatted data
+      $output = $this->renderAll($format, $data);
+      // Render template
+      return $this->renderTemplate($template, $output);
     }
 
     /**

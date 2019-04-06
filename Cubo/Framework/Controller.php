@@ -2,7 +2,7 @@
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Framework
-  * @version        0.0.2
+  * @version        0.0.3
   * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
   * @license        MIT license <https://cubo-cms.com/LICENSE.md>
   * @author         papiando
@@ -21,9 +21,11 @@
 
   class Controller {
     protected $caller;          // Pointer to calling object
+    protected $format;          // View method
     protected $model;           // Pointer to model object
     protected $params;          // Parameter set
     protected $router;          // Pointer to router object
+    protected $view;            // Pointer to view object
 
     /**
       * @section    Magic methods
@@ -54,6 +56,23 @@
     // Return the router
     public function getRouter() {
       return $this->router;
+    }
+
+    // Invoke format
+    public function invokeFormat(&$data) {
+      // Invoke view if not yet invoked
+      empty($this->view) && $this->invokeView();
+      try {
+        if($this->view->methodExists($this->format)) {
+          // Call method
+          return $this->view->{$this->format}($data);
+        } else {
+          // The method does not exist
+          throw new Error(['message'=>'format-does-not-exist', 'params'=>$this->params]);
+        }
+      } catch(Error $error) {
+        $error->render();
+      }
     }
 
     // Invoke model
@@ -90,14 +109,18 @@
       }
     }
 
-    // Load template from configuration
-    private function loadTemplate() {
-      return Configuration::load('template',Configuration::get('config')->get('template'));
-    }
-
     // Determine if method exists
     public function methodExists($method) {
       return method_exists($this, $method);
+    }
+
+    /**
+      * @section    Private methods
+      **/
+
+    // Load template from configuration
+    private function loadTemplate() {
+      return Configuration::load('template',Configuration::get('config')->get('template'));
     }
 
     /**
@@ -122,8 +145,10 @@
         if($view = $this->invokeView()) {
           // Pass controller object to view
           $view->calledBy($this);
-          // Call view method
-          return $view->items($data);
+          // Determine output format
+          $this->format = $query->get('format', 'items');
+          // Invoke view format
+          return $this->invokeFormat($data);
         }
       }
     }
@@ -156,8 +181,10 @@
         if($view = $this->invokeView()) {
           // Pass controller object to view
           $view->calledBy($this);
-          // Call view method
-          return $view->item($data);
+          // Determine output format
+          $this->format = $query->get('format', 'item');
+          // Invoke view format
+          return $this->invokeFormat($data);
         }
       }
     }

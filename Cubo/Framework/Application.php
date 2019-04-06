@@ -89,7 +89,8 @@
         // Pass application object to controller
         $controller->calledBy($this);
         // Invoke method
-        echo $router->invokeMethod($this);  // ****** CURRENTLY JUST SHOW OUTPUT
+        $output = $router->invokeMethod($this);
+        echo $output;
       }
     }
 
