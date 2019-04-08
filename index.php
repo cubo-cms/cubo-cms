@@ -6,6 +6,8 @@
 
   require('.bootstrap.php');
 
+  //$db = new Database;
+
   $app = new Application;
 
   $app->run();
