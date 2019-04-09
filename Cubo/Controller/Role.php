@@ -15,6 +15,6 @@
   use Cubo\Framework\Controller;
 
   class Role extends Controller {
-    protected $columns = ['accesslevel', 'name', 'status', 'title'];
+    protected $columns = ['accesslevel', 'description', 'name', 'status', 'title'];
   }
 ?>
