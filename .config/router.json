@@ -1,0 +1,13 @@
+{
+  "routes": {
+    "/{{controller}}": { "method": "all" },
+    "/{{controller}}/all": { "method": "all" },
+    "/{{controller}}/read/{{name}}": { "method": "read" },
+    "/{{controller}}/status/{{status}}": { "method": "status" },
+    "/{{controller}}/category/{{category}}": { "method": "category" },
+    "/category/{{name}}/articles": { "controller": "category", "method": "articles" },
+    "/user/login": { "controller": "user", "method": "login" },
+    "/user/logout": { "controller": "user", "method": "logout" },
+    "/{{controller}}/{{name}}": { "method": "read" }
+  }
+}

@@ -116,6 +116,12 @@
       return $this->renderTemplate($template, $output);
     }
 
+    // Method: json
+    public function json($data) {
+      header('Content-Type: application/json');
+      return (string)$data;
+    }
+
     /**
       * @section    Static methods
       **/

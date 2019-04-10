@@ -94,7 +94,7 @@
     // Select columns
     private function selectColumns(&$columns) {
       is_object($columns) || $columns = (array)$columns;
-      if(empty($columns)) {
+      if(empty($columns) || $columns == '*') {
         return '*';
       } else {
         return '`'.implode('`,`', $columns).'`';

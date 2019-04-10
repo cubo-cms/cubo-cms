@@ -1,0 +1,18 @@
+{
+  "templates": {
+    "default": "<!DOCTYPE html><html><head></head><body><header>{{header}}</header><main>{{main}}</main><footer>{{footer}}</footer></body></html>",
+    "error": "<!DOCTYPE html><html><head></head><body><header>{{header}}</header><main>{{main}}</main><footer>{{footer}}</footer></body></html>"
+  },
+  "views": {
+    "article": {
+      "item": "<article><div><h1>{{title}}</h1><div>{{body}}</div></div></article>",
+      "items": "<div>{{#article}}<article><div><h1>{{title}}</h1><div>{{body}}</div></div></article>{{/article}}</div>",
+      "list": "<ul>{{#article}}<li><a href='/article/read/{{name}}'>{{title}}</a></li>{{/article}}</ul>"
+    },
+    "role": {
+      "item": "<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>",
+      "items": "<div>{{#role}}<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>{{/role}}</div>",
+      "list": "<ul>{{#role}}<li><a href='/role/view/{{name}}'>{{title}}</a></li>{{/role}}</ul>"
+    }
+  }
+}

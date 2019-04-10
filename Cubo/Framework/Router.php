@@ -129,7 +129,7 @@
           $query[$property] = $this->parseQuery('?'.str_replace(',', '&', str_replace(':', '=', $value)));
       }
       // Store query
-      return new Set($query);
+      return new Set((object)$query);
     }
 
     // Redirect to specified URI

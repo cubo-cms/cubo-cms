@@ -1,0 +1,14 @@
+{
+  "name": "cubo-database",
+  "title": "Cubo Database",
+  "type": "cubo-database",
+  "path": "/.config/",
+  "sources": {
+    "accesslevel": { "driver": "json", "source": "/data/accesslevel.json", "schema": "/schema/accesslevel.json" },
+    "article": { "driver": "json", "source": "/data/article.json", "schema": "/schema/article.json" },
+    "category": { "driver": "json", "source": "/data/category.json", "schema": "/schema/category.json" },
+    "role": { "driver": "mysql", "source": "dbname=cubo_cms;host=localhost", "user": "cubo_cms", "secret": "public" },
+    "status": { "driver": "json", "source": "/data/status.json", "schema": "/schema/status.json" },
+    "user": { "driver": "json", "source": "/data/user.json", "schema": "/schema/user.json" }
+  }
+}

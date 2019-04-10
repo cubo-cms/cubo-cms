@@ -1,0 +1,9 @@
+{
+  "name": "cubo-cms",
+  "title": "Cubo CMS",
+  "description": "This is my Web App",
+  "author": "papiando",
+  "database": "database.json",
+  "router": "router.json",
+  "template": "template.json"
+}
