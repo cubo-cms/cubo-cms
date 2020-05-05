@@ -4,6 +4,11 @@
     "error": "<!DOCTYPE html><html><head></head><body><header>{{header}}</header><main>{{main}}</main><footer>{{footer}}</footer></body></html>"
   },
   "views": {
+    "accesslevel": {
+      "item": "<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>",
+      "items": "<div>{{#accesslevel}}<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>{{/accesslevel}}</div>",
+      "list": "<ul>{{#accesslevel}}<li><a href='/accesslevel/view/{{name}}'>{{title}}</a></li>{{/accesslevel}}</ul>"
+    },
     "article": {
       "item": "<article><div><h1>{{title}}</h1><div>{{body}}</div></div></article>",
       "items": "<div>{{#article}}<article><div><h1>{{title}}</h1><div>{{body}}</div></div></article>{{/article}}</div>",
@@ -13,6 +18,16 @@
       "item": "<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>",
       "items": "<div>{{#role}}<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>{{/role}}</div>",
       "list": "<ul>{{#role}}<li><a href='/role/view/{{name}}'>{{title}}</a></li>{{/role}}</ul>"
+    },
+    "status": {
+      "item": "<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>",
+      "items": "<div>{{#status}}<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>{{/status}}</div>",
+      "list": "<ul>{{#status}}<li><a href='/status/view/{{name}}'>{{title}}</a></li>{{/status}}</ul>"
+    },
+    "user": {
+      "item": "<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>",
+      "items": "<div>{{#user}}<article><div><h1>{{title}}</h1><div>{{description}}</div></div></article>{{/user}}</div>",
+      "list": "<ul>{{#user}}<li><a href='/user/view/{{name}}'>{{title}}</a></li>{{/user}}</ul>"
     }
   }
 }

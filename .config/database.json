@@ -4,7 +4,7 @@
   "type": "cubo-database",
   "path": "/.config/",
   "sources": {
-    "accesslevel": { "driver": "json", "source": "/data/accesslevel.json", "schema": "/schema/accesslevel.json" },
+    "accesslevel": { "driver": "mysql", "source": "dbname=cubo_cms;host=localhost", "user": "cubo_cms", "secret": "public" },
     "article": { "driver": "json", "source": "/data/article.json", "schema": "/schema/article.json" },
     "category": { "driver": "json", "source": "/data/category.json", "schema": "/schema/category.json" },
     "role": { "driver": "mysql", "source": "dbname=cubo_cms;host=localhost", "user": "cubo_cms", "secret": "public" },

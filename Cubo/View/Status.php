@@ -8,12 +8,12 @@
   * @author         papiando
   * @link           <https://github.com/cubo-cms/cubo-cms>
   *
-  * @description    Article view class contains methods to render article
+  * @description    Status view class contains methods to render status
   *                 objects in different formats.
   **/
   namespace Cubo\View;
   use Cubo\Framework\View;
 
-  class Article extends View {
+  class Status extends View {
   }
 ?>

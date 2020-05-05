@@ -2,8 +2,8 @@
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Framework
-  * @version        0.0.3
-  * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
+  * @version        0.0.4
+  * @copyright      2020 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
   * @license        MIT license <https://cubo-cms.com/LICENSE.md>
   * @author         papiando
   * @link           <https://github.com/cubo-cms/cubo-cms>
@@ -156,6 +156,32 @@
     // Method: default
     public function default() {
       return $this->all();
+    }
+
+    // Method: list
+    public function list() {
+      // Invoke model
+      if($model = $this->invokeModel()) {
+        // Pass controller object to model
+        $model->calledBy($this);
+        // Retrieve filters from query
+        $query = $this->router->getQuery();
+        $columns = array_filter(explode(',', $query->get('columns')), 'strlen');
+        $query->delete('columns');
+        // Add access filter
+        $query->merge(self::canList());
+        // Get all access levels
+        $data = $model->getAll(empty($columns)? $this->columns ?? ['_id', 'name']: $columns, $query);
+        // Invoke View
+        if($view = $this->invokeView()) {
+          // Pass controller object to view
+          $view->calledBy($this);
+          // Determine output format
+          $this->format = $query->get('format', 'list');
+          // Invoke view format
+          return $this->invokeFormat($data);
+        }
+      }
     }
 
     // Method: read

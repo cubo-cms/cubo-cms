@@ -114,6 +114,13 @@
       return $result;
     }
 
+    // Method: findOne
+    public function findOne($table, $columns = null, $options = null) {
+      $result = $this->find($table, $columns, $options);
+      // Return first object
+      return count($result)? $result[0]: null;
+    }
+
     // Determine if source exists
     public static function sourceExists($driver, $source) {
       return true;

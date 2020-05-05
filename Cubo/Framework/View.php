@@ -2,8 +2,8 @@
 /**
   * @package        cubo-cms/cubo-cms
   * @category       Framework
-  * @version        0.0.3
-  * @copyright      2019 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
+  * @version        0.0.4
+  * @copyright      2020 Cubo CMS <https://cubo-cms.com/COPYRIGHT.md>
   * @license        MIT license <https://cubo-cms.com/LICENSE.md>
   * @author         papiando
   * @link           <https://github.com/cubo-cms/cubo-cms>
@@ -15,6 +15,7 @@
   *                 different formats.
   **/
   namespace Cubo\Framework;
+  use Cubo\Framework\Error;
 
   class View {
     protected $params;
@@ -29,7 +30,15 @@
     public function __construct($template) {
       $this->params = $template;
       $this->templates = new Set($template->get('templates'));
-      $this->view = $template->get('views')->{self::class()};
+      try {
+        if(isset($template->get('views')->{self::class()})) {
+          $this->view = $template->get('views')->{self::class()};
+        } else {
+          throw new Error('view-template-does-not-exist');
+        }
+      } catch(Error $error) {
+        $error->render();
+      }
     }
 
     // Allow returning parameters as JSON
@@ -120,6 +129,18 @@
     public function json($data) {
       header('Content-Type: application/json');
       return (string)$data;
+    }
+
+    // Method: list
+    public function list($data) {
+      // Retrieve format from configuration
+      $format = $this->view->{__FUNCTION__};
+      // Retrieve template from configuration
+      $template = $this->getTemplate();
+      // Render formatted data
+      $output = $this->renderAll($format, $data);
+      // Render template
+      return $this->renderTemplate($template, $output);
     }
 
     /**
