@@ -1,5 +1,6 @@
 {
   "routes": {
+    "/": { "controller": "article", "method": "all" },
     "/{{controller}}": { "method": "all" },
     "/{{controller}}/all": { "method": "all" },
     "/{{controller}}/read/{{name}}": { "method": "read" },
